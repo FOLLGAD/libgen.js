@@ -34,7 +34,6 @@ describe("mirrors.js", () => {
       if (!mirror){
         assert(false, "getMirror() returned an empty string")
       }
-      console.log("Using " + mirror);
       assert(true)
     } catch (err) {
       assert(false, err)
@@ -136,6 +135,21 @@ describe("mirrors.js", () => {
       try {
         const data = await search(options)
         assert.equal(data.length, 10)
+      } catch (err) {
+        assert(false)
+      }
+    })
+
+    it("should return an array of 0 JSON objects", async () => {
+      const options = {
+        mirror: mirror,
+        query: "querythatdoesn'texist",
+        count: 10
+      }
+
+      try {
+        const data = await search(options)
+        assert.equal(data.length, 0)
       } catch (err) {
         assert(false)
       }
